@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
-  final void Function(String identifier) onSelectScreen;
-
   const MainDrawer({super.key, required this.onSelectScreen});
+
+  final void Function(String identifier) onSelectScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +11,7 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           DrawerHeader(
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -24,7 +25,6 @@ class MainDrawer extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
             ),
-            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 Icon(
@@ -34,7 +34,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 const SizedBox(width: 18),
                 Text(
-                  "Cooking up",
+                  'Cooking Up!',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                       ),
@@ -49,13 +49,15 @@ class MainDrawer extends StatelessWidget {
               color: Theme.of(context).colorScheme.onBackground,
             ),
             title: Text(
-              "Meals",
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              'Meals',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 24,
                   ),
             ),
-            onTap: () => onSelectScreen("meals"),
+            onTap: () {
+              onSelectScreen('meals');
+            },
           ),
           ListTile(
             leading: Icon(
@@ -64,13 +66,15 @@ class MainDrawer extends StatelessWidget {
               color: Theme.of(context).colorScheme.onBackground,
             ),
             title: Text(
-              "Filters",
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              'Filters',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 24,
                   ),
             ),
-            onTap: () => onSelectScreen("filters"),
+            onTap: () {
+              onSelectScreen('filters');
+            },
           ),
         ],
       ),

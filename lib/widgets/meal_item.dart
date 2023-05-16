@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:pesaninaja/models/meal.dart';
-import 'package:pesaninaja/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class MealItem extends StatelessWidget {
-  final Meal meal;
-  final void Function(Meal meal) selectMeal;
+import 'package:pesaninaja/widgets/meal_item_trait.dart';
+import 'package:pesaninaja/models/meal.dart';
 
+class MealItem extends StatelessWidget {
   const MealItem({
     super.key,
     required this.meal,
-    required this.selectMeal,
+    required this.onSelectMeal,
   });
+
+  final Meal meal;
+  final void Function(Meal meal) onSelectMeal;
 
   String get complexityText {
     return meal.complexity.name[0].toUpperCase() +
@@ -27,13 +28,15 @@ class MealItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
-      shape: BeveledRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () => selectMeal(meal),
+        onTap: () {
+          onSelectMeal(meal);
+        },
         child: Stack(
           children: [
             FadeInImage(
@@ -58,7 +61,7 @@ class MealItem extends StatelessWidget {
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       softWrap: true,
-                      overflow: TextOverflow.ellipsis,
+                      overflow: TextOverflow.ellipsis, // Very long text ...
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -71,7 +74,7 @@ class MealItem extends StatelessWidget {
                       children: [
                         MealItemTrait(
                           icon: Icons.schedule,
-                          label: "${meal.duration} minutes",
+                          label: '${meal.duration} min',
                         ),
                         const SizedBox(width: 12),
                         MealItemTrait(
@@ -82,9 +85,9 @@ class MealItem extends StatelessWidget {
                         MealItemTrait(
                           icon: Icons.attach_money,
                           label: affordabilityText,
-                        ),
+                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
